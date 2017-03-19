@@ -62,19 +62,37 @@ open class NohanaImagePickerController: UIViewController {
     fileprivate let assetCollectionSubtypes: [PHAssetCollectionSubtype]
     
     public init() {
-        assetCollectionSubtypes = [
-            .albumRegular,
-            .albumSyncedEvent,
-            .albumSyncedFaces,
-            .albumSyncedAlbum,
-            .albumImported,
-            .albumMyPhotoStream,
-            .albumCloudShared,
-            .smartAlbumGeneric,
-            .smartAlbumFavorites,
-            .smartAlbumRecentlyAdded,
-            .smartAlbumUserLibrary
-        ]
+        if #available(iOS 9.0, *) {
+            assetCollectionSubtypes = [
+                .albumRegular,
+                .albumSyncedEvent,
+                .albumSyncedFaces,
+                .albumSyncedAlbum,
+                .albumImported,
+                .albumMyPhotoStream,
+                .albumCloudShared,
+                .smartAlbumGeneric,
+                .smartAlbumFavorites,
+                .smartAlbumRecentlyAdded,
+                .smartAlbumUserLibrary,
+                .smartAlbumSelfPortraits,
+                .smartAlbumScreenshots,
+            ]
+        } else {
+            assetCollectionSubtypes = [
+                .albumRegular,
+                .albumSyncedEvent,
+                .albumSyncedFaces,
+                .albumSyncedAlbum,
+                .albumImported,
+                .albumMyPhotoStream,
+                .albumCloudShared,
+                .smartAlbumGeneric,
+                .smartAlbumFavorites,
+                .smartAlbumRecentlyAdded,
+                .smartAlbumUserLibrary
+            ]
+        }
         mediaType = .photo
         pickedAssetList = PickedAssetList()
         enableExpandingPhotoAnimation = true
@@ -133,6 +151,10 @@ open class NohanaImagePickerController: UIViewController {
     
     open func dropAsset(_ asset: Asset) {
         _ = pickedAssetList.drop(asset: asset)
+    }
+    
+    open func dropAll(){
+        pickedAssetList.removeAll()
     }
 }
 

@@ -113,4 +113,8 @@ class PickedAssetList: ItemList {
         return assetlist.contains{ $0.identifier == asset.identifier }
     }
     
+    func removeAll() {
+        assetlist.removeAll()
+    }
+    
 }
