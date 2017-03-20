@@ -54,10 +54,14 @@ class AssetListViewController: UICollectionViewController {
         }
         if picker.maximumNumberOfSelection == 1 {
             let selected = collectionView?.indexPathsForSelectedItems;
+            print(selected ?? "no selected")
             for indexPath in selected! {
                 collectionView?.deselectItem(at: indexPath, animated: true)
+                print(indexPath)
                 if let cell = collectionView?.cellForItem(at: indexPath) as? AssetCell {
                     cell.pickButton.isSelected = false
+                } else {
+                    print("not unselect")
                 }
             }
         }
