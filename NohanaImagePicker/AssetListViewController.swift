@@ -53,7 +53,13 @@ class AssetListViewController: UICollectionViewController {
             return
         }
         if picker.maximumNumberOfSelection == 1 {
-            collectionView?.reloadData()
+            let selected = collectionView?.indexPathsForSelectedItems;
+            for indexPath in selected! {
+                collectionView?.deselectItem(at: indexPath, animated: true)
+                if let cell = collectionView?.cellForItem(at: indexPath) as? AssetCell {
+                    cell.pickButton.isSelected = false
+                }
+            }
         }
         setToolbarTitle(picker)
     }
