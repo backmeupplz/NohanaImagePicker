@@ -65,6 +65,7 @@ class PickedAssetList: ItemList {
             for asset in assetlist {
                 nohanaImagePickerController?.dropAsset(asset)
             }
+            removeAll()
         } else {
             return false
         }
