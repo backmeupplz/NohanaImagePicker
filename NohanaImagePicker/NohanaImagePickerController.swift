@@ -156,5 +156,16 @@ open class NohanaImagePickerController: UIViewController {
     open func dropAll(){
         pickedAssetList.removeAll()
     }
+    
+    open func getAssetUIImage(_ asset: PHAsset, manager: PHImageManager?, option: PHImageRequestOptions?, targetSize: CGSize?, contentMode: PHImageContentMode? ) -> UIImage {
+        let manager = manager ?? PHImageManager.default()
+        let option = option ?? PHImageRequestOptions()
+        var image = UIImage()
+        option.isSynchronous = true
+        manager.requestImage(for: asset, targetSize: targetSize ?? CGSize(width: asset.pixelWidth, height: asset.pixelHeight), contentMode: contentMode ?? .aspectFit, options: option, resultHandler: {(result, info)->Void in
+            image = result!
+        })
+        return image
+    }
 }
 
