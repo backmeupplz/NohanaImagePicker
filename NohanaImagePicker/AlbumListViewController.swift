@@ -247,6 +247,16 @@ class AlbumListViewController: UITableViewController, EmptyIndicatable, Activity
     func isProgressing() -> Bool {
         return isLoading
     }
+    
+    override func didPickPhotoKitAsset(_ notification: Notification) {
+        guard let picker = notification.object as? NohanaImagePickerController else {
+            return
+        }
+        if picker.maximumNumberOfSelection == 1 {
+            tableView.reloadData()
+        }
+        setToolbarTitle(picker)
+    }
 }
 
 extension UIViewController {
