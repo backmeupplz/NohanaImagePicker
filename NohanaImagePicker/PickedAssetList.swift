@@ -62,8 +62,9 @@ class PickedAssetList: ItemList {
         }
         if nohanaImagePickerController!.maximumNumberOfSelection == 0 || assetsCountBeforePicking < nohanaImagePickerController!.maximumNumberOfSelection {}
         else if nohanaImagePickerController!.maximumNumberOfSelection == 1 {
-            nohanaImagePickerController?.dropAll()
-            removeAll()
+            for asset in assetlist {
+                nohanaImagePickerController?.dropAsset(asset)
+            }
         } else {
             return false
         }
