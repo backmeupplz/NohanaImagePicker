@@ -48,20 +48,15 @@ class AssetListViewController: UICollectionViewController {
     }
 
     override func didPickPhotoKitAsset(_ notification: Notification) {
-        print("AssetListViewController didPickPhotoKitAsset")
         guard let picker = notification.object as? NohanaImagePickerController else {
             return
         }
         if picker.maximumNumberOfSelection == 1 {
-            let selected = collectionView?.indexPathsForSelectedItems;
-            print(selected ?? "no selected")
+            let selected = collectionView?.indexPathsForVisibleItems
             for indexPath in selected! {
                 collectionView?.deselectItem(at: indexPath, animated: true)
-                print(indexPath)
                 if let cell = collectionView?.cellForItem(at: indexPath) as? AssetCell {
                     cell.pickButton.isSelected = false
-                } else {
-                    print("not unselect")
                 }
             }
         }

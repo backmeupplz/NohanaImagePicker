@@ -53,7 +53,6 @@ class AssetCell: UICollectionViewCell {
     }
     
     func update(asset: Asset, nohanaImagePickerController: NohanaImagePickerController) {
-         print(" AssetCell update")
         self.asset = asset
         self.nohanaImagePickerController = nohanaImagePickerController
         self.pickButton.isSelected = nohanaImagePickerController.pickedAssetList.isPicked(asset) 
