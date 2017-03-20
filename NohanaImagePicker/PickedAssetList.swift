@@ -60,7 +60,10 @@ class PickedAssetList: ItemList {
                 return false
             }
         }
-        guard nohanaImagePickerController!.maximumNumberOfSelection == 0 || assetsCountBeforePicking < nohanaImagePickerController!.maximumNumberOfSelection else {
+        if nohanaImagePickerController!.maximumNumberOfSelection == 0 || assetsCountBeforePicking < nohanaImagePickerController!.maximumNumberOfSelection {}
+        else if nohanaImagePickerController!.maximumNumberOfSelection == 1 {
+            nohanaImagePickerController?.pickedAssetList.drop(asset: (nohanaImagePickerController?.pickedAssetList.first)!)
+        } else {
             return false
         }
         assetlist.append(asset)
