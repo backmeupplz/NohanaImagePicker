@@ -247,6 +247,10 @@ class AlbumListViewController: UITableViewController, EmptyIndicatable, Activity
     func isProgressing() -> Bool {
         return isLoading
     }
+    
+    override open var preferredStatusBarStyle : UIStatusBarStyle {
+        return .lightContent
+    }
 }
 
 extension UIViewController {

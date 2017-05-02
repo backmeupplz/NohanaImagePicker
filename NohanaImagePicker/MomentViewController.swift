@@ -161,4 +161,7 @@ class MomentViewController: AssetListViewController, ActivityIndicatable {
         super.didPushDone(sender)
     }
     
+    override open var preferredStatusBarStyle : UIStatusBarStyle {
+        return .lightContent
+    }
 }

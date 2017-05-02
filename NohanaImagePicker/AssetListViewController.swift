@@ -158,6 +158,10 @@ class AssetListViewController: UICollectionViewController {
         let pickedPhotoKitAssets = nohanaImagePickerController!.pickedAssetList.map{ ($0 as! PhotoKitAsset).originalAsset }
         nohanaImagePickerController!.delegate?.nohanaImagePicker(nohanaImagePickerController!, didFinishPickingPhotoKitAssets: pickedPhotoKitAssets )
     }
+    
+    override open var preferredStatusBarStyle : UIStatusBarStyle {
+        return .lightContent
+    }
 }
 
 

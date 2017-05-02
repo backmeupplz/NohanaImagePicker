@@ -134,5 +134,9 @@ open class NohanaImagePickerController: UIViewController {
     open func dropAsset(_ asset: Asset) {
         _ = pickedAssetList.drop(asset: asset)
     }
+    
+    override open var preferredStatusBarStyle : UIStatusBarStyle {
+        return .lightContent
+    }
 }
 

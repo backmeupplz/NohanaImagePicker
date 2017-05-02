@@ -156,4 +156,7 @@ class AssetDetailListViewController: AssetListViewController {
         return cellSize
     }
     
+    override open var preferredStatusBarStyle : UIStatusBarStyle {
+        return .lightContent
+    }
 }
