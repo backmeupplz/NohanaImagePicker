@@ -60,7 +60,13 @@ class PickedAssetList: ItemList {
                 return false
             }
         }
-        guard nohanaImagePickerController!.maximumNumberOfSelection == 0 || assetsCountBeforePicking < nohanaImagePickerController!.maximumNumberOfSelection else {
+        if nohanaImagePickerController!.maximumNumberOfSelection == 0 || assetsCountBeforePicking < nohanaImagePickerController!.maximumNumberOfSelection {}
+        else if nohanaImagePickerController!.maximumNumberOfSelection == 1 {
+            for asset in assetlist {
+                nohanaImagePickerController?.dropAsset(asset)
+            }
+            removeAll()
+        } else {
             return false
         }
         assetlist.append(asset)
@@ -111,6 +117,10 @@ class PickedAssetList: ItemList {
     
     func isPicked(_ asset: Asset) -> Bool {
         return assetlist.contains{ $0.identifier == asset.identifier }
+    }
+    
+    func removeAll() {
+        assetlist.removeAll()
     }
     
 }

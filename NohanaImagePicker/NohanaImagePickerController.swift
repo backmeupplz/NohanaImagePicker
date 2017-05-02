@@ -62,19 +62,37 @@ open class NohanaImagePickerController: UIViewController {
     fileprivate let assetCollectionSubtypes: [PHAssetCollectionSubtype]
     
     public init() {
-        assetCollectionSubtypes = [
-            .albumRegular,
-            .albumSyncedEvent,
-            .albumSyncedFaces,
-            .albumSyncedAlbum,
-            .albumImported,
-            .albumMyPhotoStream,
-            .albumCloudShared,
-            .smartAlbumGeneric,
-            .smartAlbumFavorites,
-            .smartAlbumRecentlyAdded,
-            .smartAlbumUserLibrary
-        ]
+        if #available(iOS 9.0, *) {
+            assetCollectionSubtypes = [
+                .albumRegular,
+                .albumSyncedEvent,
+                .albumSyncedFaces,
+                .albumSyncedAlbum,
+                .albumImported,
+                .albumMyPhotoStream,
+                .albumCloudShared,
+                .smartAlbumGeneric,
+                .smartAlbumFavorites,
+                .smartAlbumRecentlyAdded,
+                .smartAlbumUserLibrary,
+                .smartAlbumSelfPortraits,
+                .smartAlbumScreenshots,
+            ]
+        } else {
+            assetCollectionSubtypes = [
+                .albumRegular,
+                .albumSyncedEvent,
+                .albumSyncedFaces,
+                .albumSyncedAlbum,
+                .albumImported,
+                .albumMyPhotoStream,
+                .albumCloudShared,
+                .smartAlbumGeneric,
+                .smartAlbumFavorites,
+                .smartAlbumRecentlyAdded,
+                .smartAlbumUserLibrary
+            ]
+        }
         mediaType = .photo
         pickedAssetList = PickedAssetList()
         enableExpandingPhotoAnimation = true
@@ -137,6 +155,24 @@ open class NohanaImagePickerController: UIViewController {
     
     override open var preferredStatusBarStyle : UIStatusBarStyle {
         return .lightContent
+    }
+    open func dropAll(){
+        pickedAssetList.removeAll()
+    }
+    
+    open func getAssetUIImage(_ asset: PHAsset) -> UIImage {
+        return getAssetUIImage(asset, nil, nil, nil, nil)
+    }
+    
+    open func getAssetUIImage(_ asset: PHAsset, _ manager: PHImageManager?, _ option: PHImageRequestOptions?, _ targetSize: CGSize?, _ contentMode: PHImageContentMode? ) -> UIImage {
+        let manager = manager ?? PHImageManager.default()
+        let option = option ?? PHImageRequestOptions()
+        var image = UIImage()
+        option.isSynchronous = true
+        manager.requestImage(for: asset, targetSize: targetSize ?? CGSize(width: asset.pixelWidth, height: asset.pixelHeight), contentMode: contentMode ?? .aspectFit, options: option, resultHandler: {(result, info)->Void in
+            image = result!
+        })
+        return image
     }
 }
 

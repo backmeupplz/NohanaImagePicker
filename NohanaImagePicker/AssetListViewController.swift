@@ -46,6 +46,22 @@ class AssetListViewController: UICollectionViewController {
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
+
+    override func didPickPhotoKitAsset(_ notification: Notification) {
+        guard let picker = notification.object as? NohanaImagePickerController else {
+            return
+        }
+        if picker.maximumNumberOfSelection == 1 {
+            let selected = collectionView?.indexPathsForVisibleItems
+            for indexPath in selected! {
+                collectionView?.deselectItem(at: indexPath, animated: true)
+                if let cell = collectionView?.cellForItem(at: indexPath) as? AssetCell {
+                    cell.pickButton.isSelected = false
+                }
+            }
+        }
+        setToolbarTitle(picker)
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
